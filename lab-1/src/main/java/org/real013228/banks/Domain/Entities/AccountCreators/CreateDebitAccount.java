@@ -23,21 +23,37 @@ public class CreateDebitAccount implements CreateBankAccount {
         this.notifier = notifier;
     }
 
+    /***
+     * setter method
+     * @param bank bank, that should be set
+     */
     @Override
     public void setBank(Bank bank) {
         this.bank = bank;
     }
 
+    /***
+     * setter method
+     * @param account account, that should be set
+     */
     @Override
     public void setAccount(double account) {
         this.account = account;
     }
 
+    /***
+     * setter method
+     * @param client client, that should be set
+     */
     @Override
     public void setClient(Client client) {
         this.client = client;
     }
 
+    /***
+     * build method
+     * @return new debit account
+     */
     @Override
     public BankAccount build() {
         return new DebitAccount(bank.getDebitPercent(), account, client, clock, null, bank.getTransactionLimit(), bank);

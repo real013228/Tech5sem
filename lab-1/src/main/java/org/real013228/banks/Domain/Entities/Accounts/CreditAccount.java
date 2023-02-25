@@ -53,6 +53,14 @@ public class CreditAccount implements BankAccount {
         bank.getTransactionLimitHasBeenChanged().addSubscriber(new TransactionLimitAction(this::setTransactionLimit));
         bank.getCreditLimitHasBeenChangedSubscribers().addSubscriber(new CreditLimitAction(this::setCreditLimit));
     }
+
+    /***
+     * taking up money method
+     * @param value - amount of taking money
+     * @return
+     * @throws AccountException
+     * @throws BalanceException
+     */
     @Override
     public double takeMoney(double value) throws AccountException, BalanceException {
         if (!canTakeMoney(value))

@@ -22,21 +22,37 @@ public class CreateDepositAccount implements CreateBankAccount {
         this.notifier = notifier;
     }
 
+    /***
+     * setter method
+     * @param bank bank, that should be set
+     */
     @Override
     public void setBank(Bank bank) {
         this.bank = bank;
     }
 
+    /***
+     * setter method
+     * @param account account, that should be set
+     */
     @Override
     public void setAccount(double account) {
         this.account = account;
     }
 
+    /***
+     * setter method
+     * @param client client, that should be set
+     */
     @Override
     public void setClient(Client client) {
         this.client = client;
     }
 
+    /***
+     * build method
+     * @return new deposit account
+     */
     @Override
     public BankAccount build() {
         return new DepositAccount(bank.calculateDepositPercent(calculator, account), account, client, clock, bank.getExpirationDays(), notifier, bank, bank.getTransactionLimit());

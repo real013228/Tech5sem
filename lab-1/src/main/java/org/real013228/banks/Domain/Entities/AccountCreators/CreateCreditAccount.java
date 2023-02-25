@@ -23,21 +23,37 @@ public class CreateCreditAccount implements CreateBankAccount {
         this.notifier = notifier;
     }
 
+    /***
+     * setter method
+     * @param bank bank, that should be set
+     */
     @Override
     public void setBank(Bank bank) {
         this.bank = bank;
     }
 
+    /***
+     * setter method
+     * @param account account, that should be set
+     */
     @Override
     public void setAccount(double account) {
         this.account = account;
     }
 
+    /***
+     * setter method
+     * @param client client, that should be set
+     */
     @Override
     public void setClient(Client client) {
         this.client = client;
     }
 
+    /***
+     * build method
+     * @return new credit account
+     */
     @Override
     public BankAccount build() {
         return new CreditAccount(bank.getCommission(), account, client, clock, bank.getCreditLimit(), bank, bank.getTransactionLimit(), notifier);
