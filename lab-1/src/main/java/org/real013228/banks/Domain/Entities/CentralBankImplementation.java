@@ -4,6 +4,7 @@ import org.real013228.banks.Domain.Abstractions.BankAccount;
 import org.real013228.banks.Domain.Abstractions.CentralBank;
 import org.real013228.banks.Domain.Abstractions.Transaction;
 import org.real013228.banks.Domain.CustomExceptions.*;
+import org.real013228.banks.Domain.Entities.Bank.BankBuilder;
 import org.real013228.banks.Domain.Entities.Actions.BankAccAction;
 
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class CentralBankImplementation implements CentralBank {
     }
 
     @Override
-    public Bank createBank(Bank.BankBuilder builder) {
+    public Bank createBank(BankBuilder builder) {
         Bank bank = builder.build();
         banks.add(bank);
         var newBankAction = new BankAccAction(this::accountCreated);

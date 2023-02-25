@@ -5,19 +5,19 @@ import org.real013228.banks.Domain.Abstractions.CentralBank;
 import org.real013228.banks.Domain.CustomExceptions.BankException;
 import org.real013228.banks.Domain.CustomExceptions.ClientException;
 import org.real013228.banks.Domain.Entities.Bank;
+import org.real013228.banks.Domain.Entities.Bank.BankBuilder;
 import org.real013228.banks.Handlers.HandlerAbstractions.SetBankParameter;
 
 import java.util.Scanner;
-
 public class SetCommissionHandler implements SetBankParameter{
     private Scanner scanner;
     private SetBankParameter nextHandler;
     @Getter
     private CentralBank mainCentralBank;
     @Getter
-    private Bank.BankBuilder builder;
+    private BankBuilder builder;
 
-    public SetCommissionHandler(CentralBank mainCentralBank, Bank.BankBuilder builder, Scanner scanner) {
+    public SetCommissionHandler(CentralBank mainCentralBank, BankBuilder builder, Scanner scanner) {
         this.mainCentralBank = mainCentralBank;
         this.builder = builder;
         this.scanner = scanner;
