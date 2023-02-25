@@ -5,6 +5,9 @@ import org.real013228.banks.Domain.Entities.Accounts.DepositAccount;
 import org.real013228.banks.Domain.Entities.Bank;
 import org.real013228.banks.Domain.Entities.Client;
 
+/***
+ * Deposit account creator type
+ */
 public class CreateDepositAccount implements CreateBankAccount {
     private final Clock clock;
     private final DepositCalculator calculator;

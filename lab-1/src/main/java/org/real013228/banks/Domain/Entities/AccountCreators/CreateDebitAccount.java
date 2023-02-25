@@ -8,6 +8,9 @@ import org.real013228.banks.Domain.Entities.Accounts.DebitAccount;
 import org.real013228.banks.Domain.Entities.Bank;
 import org.real013228.banks.Domain.Entities.Client;
 
+/***
+ * Debit account creator type
+ */
 public class CreateDebitAccount implements CreateBankAccount {
     private final Clock clock;
     private final NotifyStrategy notifier;
@@ -37,6 +40,6 @@ public class CreateDebitAccount implements CreateBankAccount {
 
     @Override
     public BankAccount build() {
-        return new DebitAccount(bank.getDebitPercent(), account, client, clock, notifier, bank.getTransactionLimit(), bank);
+        return new DebitAccount(bank.getDebitPercent(), account, client, clock, null, bank.getTransactionLimit(), bank);
     }
 }

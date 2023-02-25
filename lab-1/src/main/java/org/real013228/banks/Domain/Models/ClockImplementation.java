@@ -8,6 +8,8 @@ public class ClockImplementation implements Clock {
 
     public ClockImplementation() {
         this.day = 0;
+        this.dayChangedSubscribers = new Actions();
+        this.monthChangedSubscribers = new Actions();
     }
 
     private Actions dayChangedSubscribers;

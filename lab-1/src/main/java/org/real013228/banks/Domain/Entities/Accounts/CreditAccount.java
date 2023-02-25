@@ -16,6 +16,10 @@ import org.real013228.banks.Domain.Entities.Client;
 import org.real013228.banks.Domain.Models.Balance;
 
 import java.util.UUID;
+
+/***
+ * Credit account type
+ */
 @Getter
 public class CreditAccount implements BankAccount {
     @Getter(AccessLevel.NONE)

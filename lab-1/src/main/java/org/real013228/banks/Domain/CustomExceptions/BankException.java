@@ -2,6 +2,9 @@ package org.real013228.banks.Domain.CustomExceptions;
 
 import java.util.UUID;
 
+/***
+ * Bank-related exceptions
+ */
 public class BankException extends Exception {
     private BankException() {
     }

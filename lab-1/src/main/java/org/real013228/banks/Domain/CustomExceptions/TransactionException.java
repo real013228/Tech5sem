@@ -1,5 +1,8 @@
 package org.real013228.banks.Domain.CustomExceptions;
 
+/***
+ * Exceptions, that are related with transactions
+ */
 public class TransactionException extends Exception {
     private TransactionException() {
     }

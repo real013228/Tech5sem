@@ -16,6 +16,9 @@ import org.real013228.banks.Domain.Models.Balance;
 
 import java.util.UUID;
 
+/***
+ * Debit account type
+ */
 @Getter
 public class DebitAccount implements BankAccount {
     @Getter(AccessLevel.NONE)
@@ -34,9 +37,9 @@ public class DebitAccount implements BankAccount {
         this.transactionLimit = transactionLimit;
         this.bank = bank;
         this.id = UUID.randomUUID();
-        bank.getTransactionLimitHasBeenChanged().addSubscriber(new TransactionLimitAction(this::setTransactionLimit));
-        clock.getDayChangedSubscribers().addSubscriber(new DayChangedAction(this::setMoneyEveryDay));
-        clock.getMonthChangedSubscribers().addSubscriber(new MonthChangedAction(this::increaseMoneyEveryMonth));
+        this.bank.getTransactionLimitHasBeenChanged().addSubscriber(new TransactionLimitAction(this::setTransactionLimit));
+        this.clock.getDayChangedSubscribers().addSubscriber(new DayChangedAction(this::setMoneyEveryDay));
+        this.clock.getMonthChangedSubscribers().addSubscriber(new MonthChangedAction(this::increaseMoneyEveryMonth));
     }
 
     @Setter

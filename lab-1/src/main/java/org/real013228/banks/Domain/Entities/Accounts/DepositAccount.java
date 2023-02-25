@@ -15,6 +15,9 @@ import org.real013228.banks.Domain.Models.Balance;
 
 import java.util.UUID;
 
+/***
+ * Deposit account type
+ */
 @Getter
 public class DepositAccount implements BankAccount {
     @Getter(AccessLevel.NONE)

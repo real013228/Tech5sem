@@ -7,6 +7,9 @@ import org.real013228.banks.Domain.Abstractions.Transaction;
 import org.real013228.banks.Domain.CustomExceptions.BalanceException;
 import org.real013228.banks.Domain.CustomExceptions.TransactionException;
 
+/***
+ * Transaction wrapper type
+ */
 public class TransactionWrapper {
     private final Command cancelTransaction;
     @Getter

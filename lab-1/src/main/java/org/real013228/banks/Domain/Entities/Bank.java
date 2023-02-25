@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import org.real013228.banks.Domain.Abstractions.BankAccount;
+import org.real013228.banks.Domain.Abstractions.Clock;
 import org.real013228.banks.Domain.Abstractions.CreateBankAccount;
 import org.real013228.banks.Domain.Abstractions.DepositCalculator;
 import org.real013228.banks.Domain.CustomExceptions.BankException;
@@ -13,6 +14,10 @@ import org.real013228.banks.Domain.Entities.Actions.Actions;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
+/***
+ * Bank type
+ */
 @Getter
 public class Bank {
     @Getter(AccessLevel.NONE)
@@ -24,6 +29,7 @@ public class Bank {
     private double transactionLimit;
     private double debitPercent;
     private int expirationDays;
+    private Clock clock;
     private final UUID id;
     private Actions accountCreatedSubscribers;
     private Actions commissionHasBeenChangedSubscribers;
@@ -32,8 +38,14 @@ public class Bank {
     private Actions timeIntervalHasBeenChangedSubscribers;
     private Actions debitPercentHasBeenChangedSubscribers;
     @Builder
-    private Bank(double debitPercent, double commission, double creditLimit, double transactionLimit, int expirationDays) {
+    private Bank(double debitPercent, double commission, double creditLimit, double transactionLimit, int expirationDays, Clock clock) {
         this.debitPercent = debitPercent;
+        this.accountCreatedSubscribers = new Actions();
+        this.commissionHasBeenChangedSubscribers = new Actions();
+        this.creditLimitHasBeenChangedSubscribers = new Actions();
+        this.transactionLimitHasBeenChanged = new Actions();
+        this.timeIntervalHasBeenChangedSubscribers = new Actions();
+        this.debitPercentHasBeenChangedSubscribers = new Actions();
         this.clients = new ArrayList<>();
         this.accounts = new ArrayList<>();
         this.commission = commission;
@@ -41,6 +53,7 @@ public class Bank {
         this.transactionLimit = transactionLimit;
         this.expirationDays = expirationDays;
         this.id = UUID.randomUUID();
+        this.clock = clock;
     }
     public static BankBuilder builder() {
         return new BankBuilder();
@@ -79,7 +92,7 @@ public class Bank {
         clients.add(client);
     }
     public Client getClientById(UUID id) throws ClientException {
-        Client client = clients.stream().filter(x -> x.getId() == id).findFirst().orElse(null);
+        Client client = clients.stream().filter(x -> x.getId().equals(id)).findFirst().orElse(null);
         if (client != null)
             return client;
         throw ClientException.cannotFindClientById(id);

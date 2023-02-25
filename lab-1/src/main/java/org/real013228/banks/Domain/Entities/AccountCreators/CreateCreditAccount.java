@@ -8,6 +8,9 @@ import org.real013228.banks.Domain.Entities.Accounts.CreditAccount;
 import org.real013228.banks.Domain.Entities.Bank;
 import org.real013228.banks.Domain.Entities.Client;
 
+/***
+ * Credit account creator type
+ */
 public class CreateCreditAccount implements CreateBankAccount {
     private final Clock clock;
     private final NotifyStrategy notifier;

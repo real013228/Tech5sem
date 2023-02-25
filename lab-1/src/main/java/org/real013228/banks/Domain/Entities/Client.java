@@ -30,6 +30,7 @@ public class Client {
     private Client(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.id = UUID.randomUUID();
     }
 
     /***

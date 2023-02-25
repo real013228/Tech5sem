@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+/***
+ * Central bank implementation of CentralBank interface
+ */
 public class CentralBankImplementation implements CentralBank {
     private final List<Bank> banks;
     private final List<BankAccount> accounts;

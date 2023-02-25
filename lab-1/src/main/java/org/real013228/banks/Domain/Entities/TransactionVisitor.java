@@ -17,6 +17,9 @@ import org.real013228.banks.Domain.Entities.Transactions.TransferMoney;
 
 import java.util.List;
 
+/***
+ * Visitor implementation
+ */
 public class TransactionVisitor implements Visitor {
     private final List<BankAccount> accounts;
     @Getter
