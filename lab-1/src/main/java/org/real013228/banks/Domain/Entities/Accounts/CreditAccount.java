@@ -57,9 +57,9 @@ public class CreditAccount implements BankAccount {
     /***
      * taking up money method
      * @param value - amount of taking money
-     * @return
-     * @throws AccountException
-     * @throws BalanceException
+     * @return amount of money if there are no any exceptions
+     * @throws AccountException account exception
+     * @throws BalanceException balance exception
      */
     @Override
     public double takeMoney(double value) throws AccountException, BalanceException {
@@ -70,6 +70,12 @@ public class CreditAccount implements BankAccount {
                 : balance.decreaseMoney(value);
     }
 
+    /***
+     * topping up money method
+     * @param value amount of topping up money
+     * @return amount of money if there are no any exceptions
+     * @throws AccountException account exception
+     */
     @Override
     public double topUpMoney(double value) throws AccountException {
         if (!canTopUpMoney(value))
@@ -79,27 +85,50 @@ public class CreditAccount implements BankAccount {
                 : balance.increaseMoney(value);
     }
 
+    /***
+     * checking method
+     * @param value how much money should be taken
+     * @return true if it's possible to take money
+     */
     @Override
     public boolean canTakeMoney(double value) {
         return !clientAccount.isSus() || transactionLimit >= value
                 && balance.getValue() - value - commission >= creditLimit;
     }
 
+    /***
+     * checking method
+     * @param value how much money should be topped up
+     * @return true if it's possible to top up money
+     */
     @Override
     public boolean canTopUpMoney(double value) {
         return !clientAccount.isSus() || value <= transactionLimit;
     }
 
+    /***
+     * force increasing
+     * @param value amount of money
+     */
     @Override
     public void accrualMoney(double value) {
         balance.increaseMoney(value);
     }
 
+    /***
+     * force decreasing
+     * @param value amount of money
+     * @throws BalanceException
+     */
     @Override
     public void decreaseMoney(double value) throws BalanceException {
         balance.decreaseMoney(value);
     }
 
+    /***
+     * getter method
+     * @return amount of money in current balance
+     */
     @Override
     public double getBalanceValue() {
         return balance.getValue();

@@ -21,9 +21,9 @@ import java.util.UUID;
 @Getter
 public class DepositAccount implements BankAccount {
     @Getter(AccessLevel.NONE)
-    private Balance balanceValue;
+    private final Balance balanceValue;
     @Getter(AccessLevel.NONE)
-    private Bank bank;
+    private final Bank bank;
     @Getter(AccessLevel.NONE)
     private boolean isExpired;
     @Getter(AccessLevel.NONE)
@@ -44,9 +44,6 @@ public class DepositAccount implements BankAccount {
         this.transactionLimit = transactionLimit;
         clock.getDayChangedSubscribers().addSubscriber(new DayChangedAction(this::setMoneyEveryDay));
         clock.getMonthChangedSubscribers().addSubscriber(new MonthChangedAction(this::increaseMoneyEveryMonth));
-//        clock.TimeHasBeenExpired += Verify;
-//        clock.DayHasBeenPassed += SetMoneyEveryDay;
-//        clock.MonthHasBeenPassed += IncreaseMoneyEveryMonth;
     }
 
     private final NotifyStrategy notifier;
@@ -54,6 +51,11 @@ public class DepositAccount implements BankAccount {
     @Setter(AccessLevel.PRIVATE)
     private double transactionLimit;
     private final double percent;
+
+    /***
+     * getter method
+     * @return amount of money in balance
+     */
     @Override
     public double getBalanceValue() {
         return balanceValue.getValue();
@@ -63,41 +65,78 @@ public class DepositAccount implements BankAccount {
     @Setter(AccessLevel.PRIVATE)
     private int interval;
 
+    /***
+     * taking up money method
+     * @param value - amount of taking money
+     * @return amount of money if there are no any exceptions
+     * @throws BalanceException balance exception
+     */
     public double takeMoney(double value) throws BalanceException {
         return balanceValue.decreaseMoney(value);
     }
 
+    /***
+     * topping up money method
+     * @param value amount of topping up money
+     * @return amount of money if there are no any exceptions
+     */
     public double topUpMoney(double value)
     {
         return balanceValue.increaseMoney(value);
     }
 
+    /***
+     * checking method
+     * @param value how much money should be taken
+     * @return true if it's possible to take money
+     */
     public boolean canTakeMoney(double value)
     {
         return (!clientAccount.isSus() || transactionLimit >= value) && !isExpired && !(balanceValue.getValue() < value);
     }
 
+    /***
+     * checking method
+     * @param value how much money should be topped up
+     * @return true if it's possible to top up money
+     */
     public boolean canTopUpMoney(double value)
     {
         return !clientAccount.isSus() || transactionLimit >= value;
     }
 
+    /***
+     * force increasing
+     * @param value amount of money
+     */
     public void accrualMoney(double value)
     {
         if (canTopUpMoney(value))
             balanceValue.increaseMoney(value);
     }
 
+    /***
+     * force decreasing
+     * @param value amount of money
+     * @throws BalanceException balance exception
+     */
     public void decreaseMoney(double value) throws BalanceException {
         if (canTakeMoney(value))
             balanceValue.decreaseMoney(value);
     }
 
+    /***
+     * verifying method
+     */
     private void verify()
     {
         isExpired = true;
     }
 
+    /***
+     * setter method, that works every day
+     * @param t true
+     */
     private void setMoneyEveryDay(boolean t)
     {
         interval--;
@@ -107,6 +146,10 @@ public class DepositAccount implements BankAccount {
         cashBack += balanceValue.getValue() * percent;
     }
 
+    /***
+     * increasing every month money
+     * @param t true
+     */
     private void increaseMoneyEveryMonth(boolean t)
     {
         balanceValue.increaseMoney(cashBack);
