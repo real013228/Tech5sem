@@ -20,12 +20,12 @@ public class DomainLogicTest {
     @Test
     void debitPercentCheck() {
         var bank = centralBank.createBank(Bank.builder()
-                .debitPercent(1)
+                .debitPercent(16)
                 .commission(1)
                 .creditLimit(1)
                 .expirationDays(2)
                 .transactionLimit(1));
-        assertEquals(bank.getDebitPercent(), 1d);
+        assertEquals(bank.getDebitPercent(), 16);
     }
     @Test
     void transactionLimitCheck() {
@@ -34,8 +34,8 @@ public class DomainLogicTest {
                 .commission(1)
                 .creditLimit(1)
                 .expirationDays(2)
-                .transactionLimit(1));
-        assertEquals(bank.getTransactionLimit(), 1d);
+                .transactionLimit(30));
+        assertEquals(bank.getTransactionLimit(), 30);
     }
     @Test
     void expirationDaysCheck() {

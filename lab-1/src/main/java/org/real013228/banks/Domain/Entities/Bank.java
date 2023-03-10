@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.UUID;
 
 /***
- * Bank type
+ * Bank entity
  */
 @Getter
 public class Bank {
@@ -31,12 +31,12 @@ public class Bank {
     private int expirationDays;
     private Clock clock;
     private final UUID id;
-    private Actions accountCreatedSubscribers;
-    private Actions commissionHasBeenChangedSubscribers;
-    private Actions creditLimitHasBeenChangedSubscribers;
-    private Actions transactionLimitHasBeenChanged;
-    private Actions timeIntervalHasBeenChangedSubscribers;
-    private Actions debitPercentHasBeenChangedSubscribers;
+    private final Actions accountCreatedSubscribers;
+    private final Actions commissionHasBeenChangedSubscribers;
+    private final Actions creditLimitHasBeenChangedSubscribers;
+    private final Actions transactionLimitHasBeenChanged;
+    private final Actions timeIntervalHasBeenChangedSubscribers;
+    private final Actions debitPercentHasBeenChangedSubscribers;
     @Builder
     private Bank(double debitPercent, double commission, double creditLimit, double transactionLimit, int expirationDays, Clock clock) {
         this.debitPercent = debitPercent;
