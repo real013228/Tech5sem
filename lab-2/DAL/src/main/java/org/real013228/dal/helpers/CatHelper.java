@@ -13,13 +13,13 @@ import org.real013228.dal.entity.Owner;
 import java.util.List;
 
 public class CatHelper {
-    private SessionFactory sessionFactory;
+    private final SessionFactory sessionFactory;
     public CatHelper() {
         sessionFactory = HibernateUtil.getSessionFactory();
     }
     public Cat getCat(int id) {
 
-        Session session = sessionFactory.openSession();
+        Session session = sessionFactory.getCurrentSession();
         Cat cat = session.get(Cat.class, id);
         session.close();
         return cat;
@@ -34,7 +34,7 @@ public class CatHelper {
 //        return catList;
     }
     public void commitCat(Cat cat) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.getTransaction().begin();
         session.persist(cat);
         session.getTransaction().commit();

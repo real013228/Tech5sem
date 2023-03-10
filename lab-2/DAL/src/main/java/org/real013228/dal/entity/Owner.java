@@ -18,6 +18,6 @@ public class Owner implements Serializable {
     private int id;
     private String name;
     private Calendar birthDate;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "ownerId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Cat> cats;
 }

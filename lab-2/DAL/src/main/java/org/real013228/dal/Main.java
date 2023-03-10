@@ -1,11 +1,9 @@
 package org.real013228.dal;
 
-import org.hibernate.Session;
 import org.real013228.dal.entity.Cat;
 import org.real013228.dal.entity.Owner;
 import org.real013228.dal.helpers.CatHelper;
 import org.real013228.dal.helpers.OwnerHelper;
-import org.real013228.dal.model.Color;
 
 import java.util.*;
 
@@ -19,12 +17,27 @@ public class Main {
         CatHelper catHelper = new CatHelper();
         OwnerHelper ownerHelper = new OwnerHelper();
         DatabaseContext db = new DatabaseContext(ownerHelper, catHelper);
-        Cat cat = new Cat();
-        cat.setBirthDate(new GregorianCalendar());
-        cat.setName("sylgy ete");
-        cat.setColor(Color.RED);
-        cat.setBreed("artur petrovich");
-        db.getCatHelper().commitCat(cat);
+//        Cat cat = new Cat();
+//        cat.setBirthDate(new GregorianCalendar());
+//        cat.setName("zykov");
+//        cat.setBreed("timur mongol");
+//        cat.setColor("green");
+//        db.getCatHelper().commitCat(cat);
+//
+//        Cat cat2 = new Cat();
+//        cat2.setBirthDate(new GregorianCalendar());
+//        cat2.setName("sylgy ete");
+//        cat2.setBreed("artur petrovich");
+//        cat2.setColor("red");
+//        db.makeFriends(catHelper.getCat(3).getId(), 4);
+//        Owner owner = new Owner();
+//        owner.setName("emilia tan");
+//        owner.setBirthDate(new GregorianCalendar());
+//        Cat cat =db.getCatHelper().getCat(3);
+//        owner.setCats(List.of(cat));
+//        db.getOwnerHelper().commitOwner(owner);
+        db.ownCat(4, 3);
+//        db.getCatHelper().commitCat(cat2);
 //        cat.setOwner(owner);
 //
 //        Cat cat1 = new Cat();
