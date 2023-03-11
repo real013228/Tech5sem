@@ -25,6 +25,7 @@ public class CentralBankImplementation implements CentralBank {
         transactions = new ArrayList<>();
         clients = new ArrayList<>();
     }
+
     @Override
     public Bank getBankFromId(UUID id) throws BankException {
         Bank bank = banks.stream().filter(x -> x.getId() == id).findFirst().orElse(null);
@@ -46,6 +47,7 @@ public class CentralBankImplementation implements CentralBank {
     public Client registerClient(Client.ClientBuilder clientBuilder, Bank bank) throws ClientException, BankException {
         Client client = clientBuilder
                 .build();
+
         bank.registerClient(client);
         clients.add(client);
         return client;

@@ -5,6 +5,7 @@ package org.real013228.banks.Domain.CustomExceptions;
  */
 public class AccountException extends Exception {
     private AccountException() {
+
     }
 
     private AccountException(String message) {
