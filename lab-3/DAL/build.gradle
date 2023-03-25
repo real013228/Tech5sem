@@ -1,0 +1,43 @@
+plugins {
+    id 'java'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+compileJava.options.encoding = 'UTF-8'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+
+    testImplementation 'com.h2database:h2:2.1.214'
+
+    implementation group: 'org.hibernate.orm', name: 'hibernate-core', version: '6.1.7.Final'
+
+    compileOnly 'org.projectlombok:lombok:1.18.26'
+    annotationProcessor("org.projectlombok:lombok:1.18.26")
+
+    testCompileOnly("org.projectlombok:lombok:1.18.26")
+    testAnnotationProcessor("org.projectlombok:lombok:1.18.26")
+
+    implementation 'org.postgresql:postgresql:42.5.4'
+
+
+    implementation ("org.springframework:spring-core:6.0.7")
+    implementation("org.springframework:spring-beans:6.0.7")
+    implementation("org.springframework:spring-context:6.0.7")
+    implementation("org.springframework:spring-web:6.0.7")
+}
+
+test {
+    useJUnitPlatform()
+}
