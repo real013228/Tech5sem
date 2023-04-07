@@ -1,7 +1,0 @@
-package org.real013228.lab3.bll;
-
-public class Main {
-    public static void main(String[] args) {
-        System.out.println("Hello world!");
-    }
-}
