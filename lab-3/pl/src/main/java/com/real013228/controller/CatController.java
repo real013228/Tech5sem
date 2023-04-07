@@ -24,6 +24,10 @@ public class CatController {
     public CatDto findCatById(@PathVariable("id") Long id) {
         return catService.findCatById(id);
     }
+    @GetMapping("/color/{colorName}")
+    public List<CatDto> findAllCatsWithColor(@PathVariable("colorName") String colorName) {
+        return catService.findAllCatsWithColor(colorName);
+    }
     @PostMapping
     public void saveCat(@RequestBody CatDto cat) {
         catService.saveCat(cat);

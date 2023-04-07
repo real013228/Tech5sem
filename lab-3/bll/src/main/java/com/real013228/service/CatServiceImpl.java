@@ -2,6 +2,7 @@ package com.real013228.service;
 
 import com.real013228.Mapper;
 import com.real013228.dto.CatDto;
+import com.real013228.entity.CatEntity;
 import com.real013228.repository.CatRepository;
 import com.real013228.repository.OwnerRepository;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,16 @@ public class CatServiceImpl implements CatService {
     public List<CatDto> findAllCats() {
         List<CatDto> cats = new ArrayList<>();
         for(var cat : catRepository.findAll()) {
+            cats.add(Mapper.asCatDto(cat));
+        }
+
+        return cats;
+    }
+
+    @Override
+    public List<CatDto> findAllCatsWithColor(String color) {
+        List<CatDto> cats = new ArrayList<>();
+        for (CatEntity cat : catRepository.findAll().stream().filter(x -> (x.getColor().equals(color))).toList()) {
             cats.add(Mapper.asCatDto(cat));
         }
 

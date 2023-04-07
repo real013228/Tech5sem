@@ -16,7 +16,7 @@ public class Mapper {
         if(cat.getOwner() != null) {
             ownerId = cat.getOwner().getId();
         }
-        CatDto catDto = new CatDto(cat.getBreed(), cat.getBirthDate(), cat.getBreed(), cat.getColor(), ownerId, cat.getFriends().stream().map(CatEntity::getId).toList());
+        CatDto catDto = new CatDto(cat.getName(), cat.getBirthDate(), cat.getBreed(), cat.getColor(), ownerId, cat.getFriends().stream().map(CatEntity::getId).toList());
         return catDto;
     }
     public static CatEntity asCatEntity(CatDto cat, CatRepository catRepository) {

@@ -8,6 +8,7 @@ import java.util.Optional;
 
 public interface CatService {
     List<CatDto> findAllCats();
+    List<CatDto> findAllCatsWithColor(String color);
     CatDto findCatById(Long id);
     void saveCat(CatDto cat);
     void deleteCat(Long id);
