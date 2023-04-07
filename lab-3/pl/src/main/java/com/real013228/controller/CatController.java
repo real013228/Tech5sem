@@ -1,6 +1,7 @@
 package com.real013228.controller;
 
 import com.real013228.dto.CatDto;
+import com.real013228.dto.FilterDto;
 import com.real013228.dto.MakeFriendsDto;
 import com.real013228.service.CatService;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +28,10 @@ public class CatController {
     @GetMapping("/color/{colorName}")
     public List<CatDto> findAllCatsWithColor(@PathVariable("colorName") String colorName) {
         return catService.findAllCatsWithColor(colorName);
+    }
+    @GetMapping("/filter")
+    public List<CatDto> findAllCatsWithFilter(@RequestBody FilterDto filter) {
+        return catService.findAllCatsWithFilter(filter);
     }
     @PostMapping
     public void saveCat(@RequestBody CatDto cat) {

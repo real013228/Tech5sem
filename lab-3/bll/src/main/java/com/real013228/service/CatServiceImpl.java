@@ -1,14 +1,19 @@
 package com.real013228.service;
 
+import com.real013228.CatSpecification;
 import com.real013228.Mapper;
+import com.real013228.SearchCriteria;
 import com.real013228.dto.CatDto;
+import com.real013228.dto.FilterDto;
 import com.real013228.entity.CatEntity;
 import com.real013228.repository.CatRepository;
 import com.real013228.repository.OwnerRepository;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class CatServiceImpl implements CatService {
@@ -38,6 +43,12 @@ public class CatServiceImpl implements CatService {
         }
 
         return cats;
+    }
+
+    @Override
+    public List<CatDto> findAllCatsWithFilter(FilterDto filter) {
+        CatSpecification spec = new CatSpecification(new SearchCriteria(filter.key(), filter.operation(), filter.value()));
+        return catRepository.findAll(spec).stream().map(Mapper::asCatDto).toList();
     }
 
     @Override
