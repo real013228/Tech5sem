@@ -5,6 +5,7 @@ import com.real013228.dto.CatDto;
 import com.real013228.dto.OwnerDto;
 import com.real013228.entity.CatEntity;
 import com.real013228.entity.OwnerEntity;
+import com.real013228.exceptions.CustomException;
 import com.real013228.repository.CatRepository;
 import com.real013228.repository.OwnerRepository;
 import org.springframework.stereotype.Service;
@@ -34,7 +35,10 @@ public class OwnerServiceImpl implements OwnerService{
     }
 
     @Override
-    public OwnerDto findOwnerById(Long id) {
+    public OwnerDto findOwnerById(Long id) throws CustomException {
+        if (id <= 0 || ownerRepository.findById(id).orElse(null) == null) {
+            throw CustomException.InvalidIdException(id);
+        }
         var owner = ownerRepository.findById(id).orElse(null);
         assert owner != null;
         return Mapper.asOwnerDto(owner);
@@ -59,7 +63,10 @@ public class OwnerServiceImpl implements OwnerService{
     }
 
     @Override
-    public void deleteOwner(Long id) {
+    public void deleteOwner(Long id) throws CustomException {
+        if (id <= 0 || ownerRepository.findById(id).orElse(null) == null) {
+            throw CustomException.InvalidIdException(id);
+        }
         ownerRepository.deleteById(id);
     }
 }

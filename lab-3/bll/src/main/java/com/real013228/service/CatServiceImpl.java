@@ -6,6 +6,7 @@ import com.real013228.SearchCriteria;
 import com.real013228.dto.CatDto;
 import com.real013228.dto.FilterDto;
 import com.real013228.entity.CatEntity;
+import com.real013228.exceptions.CustomException;
 import com.real013228.repository.CatRepository;
 import com.real013228.repository.OwnerRepository;
 import org.springframework.data.jpa.domain.Specification;
@@ -36,12 +37,14 @@ public class CatServiceImpl implements CatService {
     }
 
     @Override
-    public List<CatDto> findAllCatsWithColor(String color) {
+    public List<CatDto> findAllCatsWithColor(String color) throws CustomException {
         List<CatDto> cats = new ArrayList<>();
         for (CatEntity cat : catRepository.findAll().stream().filter(x -> (x.getColor().equals(color))).toList()) {
             cats.add(Mapper.asCatDto(cat));
         }
-
+        if(cats.isEmpty()) {
+            throw CustomException.InvalidColorException(color);
+        }
         return cats;
     }
 
@@ -52,7 +55,10 @@ public class CatServiceImpl implements CatService {
     }
 
     @Override
-    public CatDto findCatById(Long id) {
+    public CatDto findCatById(Long id) throws CustomException {
+        if (id <= 0 || catRepository.findById(id).orElse(null) == null) {
+            throw CustomException.InvalidIdException(id);
+        }
         var cat = catRepository.findById(id).orElse(null);
         assert cat != null;
         return Mapper.asCatDto(cat);
@@ -64,7 +70,10 @@ public class CatServiceImpl implements CatService {
     }
 
     @Override
-    public void deleteCat(Long id) {
+    public void deleteCat(Long id) throws CustomException {
+        if (id <= 0 || catRepository.findById(id).orElse(null) == null) {
+            throw CustomException.InvalidIdException(id);
+        }
         var cat = catRepository.findById(id).orElse(null);
         if (cat != null) {
             var owner = cat.getOwner();
@@ -83,12 +92,15 @@ public class CatServiceImpl implements CatService {
     }
 
     @Override
-    public void makeFriends(Long firstCatId, Long secondCatId) {
+    public void makeFriends(Long firstCatId, Long secondCatId) throws CustomException {
+        if (firstCatId <= 0 || catRepository.findById(firstCatId).orElse(null) == null) {
+            throw CustomException.InvalidIdException(firstCatId);
+        }
+        if (secondCatId <= 0 || catRepository.findById(secondCatId).orElse(null) == null) {
+            throw CustomException.InvalidIdException(secondCatId);
+        }
         var firstCat = catRepository.findById(firstCatId).orElse(null);
         var secondCat = catRepository.findById(secondCatId).orElse(null);
-        if (firstCat == null || secondCat == null) {
-            throw new NullPointerException();
-        }
         var firstCatFriends = firstCat.getFriends();
         firstCatFriends.add(secondCat);
 

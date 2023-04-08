@@ -3,8 +3,11 @@ package com.real013228.controller;
 import com.real013228.dto.CatDto;
 import com.real013228.dto.MakeOwnDto;
 import com.real013228.dto.OwnerDto;
+import com.real013228.exceptions.CustomException;
 import com.real013228.service.OwnerService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -21,7 +24,11 @@ public class OwnerController {
     }
     @GetMapping("/{id}")
     public OwnerDto findOwnerById(@PathVariable("id") Long id) {
-        return ownerService.findOwnerById(id);
+        try {
+            return ownerService.findOwnerById(id);
+        } catch (CustomException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
+        }
     }
     @PostMapping
     public void saveOwner(@RequestBody OwnerDto owner) {
@@ -33,6 +40,10 @@ public class OwnerController {
     }
     @DeleteMapping("/{id}")
     public void deleteOwner(@PathVariable("id") Long id) {
-        ownerService.deleteOwner(id);
+        try {
+            ownerService.deleteOwner(id);
+        } catch (CustomException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
+        }
     }
 }
