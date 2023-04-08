@@ -42,6 +42,7 @@ public class DatabaseContext {
         session.getTransaction().commit();
         session.close();
     }
+
     public void removeFriends(int firstCatId, int secondCatId) {
         Session session = sessionFactory.getCurrentSession();
         session.getTransaction().begin();
