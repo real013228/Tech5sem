@@ -5,7 +5,10 @@ import com.real013228.dto.FilterDto;
 import com.real013228.dto.MakeFriendsDto;
 import com.real013228.exceptions.CustomException;
 import com.real013228.service.CatService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.service.annotation.PutExchange;
@@ -26,42 +29,26 @@ public class CatController {
     }
     @GetMapping("/{id}")
     public CatDto findCatById(@PathVariable("id") Long id) {
-        try {
-            return catService.findCatById(id);
-        } catch (CustomException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
-        }
+        return catService.findCatById(id);
     }
     @GetMapping("/color/{colorName}")
     public List<CatDto> findAllCatsWithColor(@PathVariable("colorName") String colorName) {
-        try {
-            return catService.findAllCatsWithColor(colorName);
-        } catch (CustomException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
-        }
+        return catService.findAllCatsWithColor(colorName);
     }
     @GetMapping("/filter")
     public List<CatDto> findAllCatsWithFilter(@RequestBody FilterDto filter) {
         return catService.findAllCatsWithFilter(filter);
     }
     @PostMapping
-    public void saveCat(@RequestBody CatDto cat) {
+    public void saveCat(@RequestBody @Valid CatDto cat) {
         catService.saveCat(cat);
     }
     @PutMapping("/make/friends")
-    public void makeFriends(@RequestBody MakeFriendsDto cats) {
-        try {
-            catService.makeFriends(cats.firstCat(),cats. secondCat());
-        } catch (CustomException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
-        }
+    public void makeFriends(@RequestBody @Valid MakeFriendsDto cats) {
+        catService.makeFriends(cats.firstCat(),cats. secondCat());
     }
     @DeleteMapping("/{id}")
-    public void deleteCat(@PathVariable("id") Long id) {
-        try {
-            catService.deleteCat(id);
-        } catch (CustomException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
-        }
+    public void deleteCat(@PathVariable("id") @Min(1) Long id) {
+        catService.deleteCat(id);
     }
 }

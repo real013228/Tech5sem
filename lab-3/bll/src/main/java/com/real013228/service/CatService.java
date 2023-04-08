@@ -10,10 +10,11 @@ import java.util.Optional;
 
 public interface CatService {
     List<CatDto> findAllCats();
-    List<CatDto> findAllCatsWithColor(String color) throws CustomException;
+    List<CatDto> findAllCatsWithColor(String color);
     List<CatDto> findAllCatsWithFilter(FilterDto filter);
-    CatDto findCatById(Long id) throws CustomException;
+    CatDto findCatById(Long id) ;
     void saveCat(CatDto cat);
-    void deleteCat(Long id) throws CustomException;
-    void makeFriends(Long firstCat, Long secondCat) throws CustomException;
+    void deleteCat(Long id);
+    void makeFriends(Long firstCat, Long secondCat);
+    List<CatDto> findCatByBreed(String breed);
 }

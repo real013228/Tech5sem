@@ -3,6 +3,7 @@ package com.real013228.entity;
 import jakarta.persistence.*;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -11,7 +12,7 @@ public class CatEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String birthDate;
+    private Date birthDate;
     private String breed;
     private String color;
     @ManyToOne
@@ -27,7 +28,7 @@ public class CatEntity{
         return this.name;
     }
 
-    public String getBirthDate() {
+    public Date getBirthDate() {
         return this.birthDate;
     }
 
@@ -55,7 +56,7 @@ public class CatEntity{
         this.name = name;
     }
 
-    public void setBirthDate(String birthDate) {
+    public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
     }
 

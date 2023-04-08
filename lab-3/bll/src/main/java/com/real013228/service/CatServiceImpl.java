@@ -37,13 +37,10 @@ public class CatServiceImpl implements CatService {
     }
 
     @Override
-    public List<CatDto> findAllCatsWithColor(String color) throws CustomException {
+    public List<CatDto> findAllCatsWithColor(String color) {
         List<CatDto> cats = new ArrayList<>();
         for (CatEntity cat : catRepository.findAll().stream().filter(x -> (x.getColor().equals(color))).toList()) {
             cats.add(Mapper.asCatDto(cat));
-        }
-        if(cats.isEmpty()) {
-            throw CustomException.InvalidColorException(color);
         }
         return cats;
     }
@@ -55,10 +52,10 @@ public class CatServiceImpl implements CatService {
     }
 
     @Override
-    public CatDto findCatById(Long id) throws CustomException {
-        if (id <= 0 || catRepository.findById(id).orElse(null) == null) {
-            throw CustomException.InvalidIdException(id);
-        }
+    public CatDto findCatById(Long id) {
+//        if (id <= 0 || catRepository.findById(id).orElse(null) == null) {
+//            throw CustomException.InvalidIdException(id);
+//        }
         var cat = catRepository.findById(id).orElse(null);
         assert cat != null;
         return Mapper.asCatDto(cat);
@@ -70,10 +67,10 @@ public class CatServiceImpl implements CatService {
     }
 
     @Override
-    public void deleteCat(Long id) throws CustomException {
-        if (id <= 0 || catRepository.findById(id).orElse(null) == null) {
-            throw CustomException.InvalidIdException(id);
-        }
+    public void deleteCat(Long id) {
+//        if (id <= 0 || catRepository.findById(id).orElse(null) == null) {
+//            throw CustomException.InvalidIdException(id);
+//        }
         var cat = catRepository.findById(id).orElse(null);
         if (cat != null) {
             var owner = cat.getOwner();
@@ -92,13 +89,13 @@ public class CatServiceImpl implements CatService {
     }
 
     @Override
-    public void makeFriends(Long firstCatId, Long secondCatId) throws CustomException {
-        if (firstCatId <= 0 || catRepository.findById(firstCatId).orElse(null) == null) {
-            throw CustomException.InvalidIdException(firstCatId);
-        }
-        if (secondCatId <= 0 || catRepository.findById(secondCatId).orElse(null) == null) {
-            throw CustomException.InvalidIdException(secondCatId);
-        }
+    public void makeFriends(Long firstCatId, Long secondCatId) {
+//        if (firstCatId <= 0 || catRepository.findById(firstCatId).orElse(null) == null) {
+//            throw CustomException.InvalidIdException(firstCatId);
+//        }
+//        if (secondCatId <= 0 || catRepository.findById(secondCatId).orElse(null) == null) {
+//            throw CustomException.InvalidIdException(secondCatId);
+//        }
         var firstCat = catRepository.findById(firstCatId).orElse(null);
         var secondCat = catRepository.findById(secondCatId).orElse(null);
         var firstCatFriends = firstCat.getFriends();
@@ -111,5 +108,10 @@ public class CatServiceImpl implements CatService {
         secondCat.setFriends(secondCatFriends);
         catRepository.save(firstCat);
         catRepository.save(secondCat);
+    }
+
+    @Override
+    public List<CatDto> findCatByBreed(String breed) {
+        return catRepository.findAllByBreed(breed).stream().map(Mapper::asCatDto).toList();
     }
 }

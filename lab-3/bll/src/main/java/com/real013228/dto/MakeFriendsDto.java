@@ -1,4 +1,6 @@
 package com.real013228.dto;
 
-public record MakeFriendsDto(Long firstCat, Long secondCat){
+import jakarta.validation.constraints.Min;
+
+public record MakeFriendsDto(@Min(1) Long firstCat, @Min(1)Long secondCat){
 }
