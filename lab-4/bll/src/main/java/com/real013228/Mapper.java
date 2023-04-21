@@ -34,7 +34,7 @@ public class Mapper {
         return catEntity;
     }
     public static OwnerDto asOwnerDto(OwnerEntity owner) {
-        return new OwnerDto(owner.getName(), owner.getBirthDate(), owner.getCats().stream().map(CatEntity::getId).toList());
+        return new OwnerDto(owner.getName(), owner.getBirthDate(), owner.getCats().stream().map(CatEntity::getId).toList(), owner.getUserAccount().getId());
     }
     public static OwnerEntity asOwnerEntity(OwnerDto owner, CatRepository catRepository) {
         OwnerEntity ownerEntity = new OwnerEntity();

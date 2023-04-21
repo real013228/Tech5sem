@@ -2,10 +2,6 @@ package com.real013228.entity;
 
 import com.real013228.ERole;
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,10 +10,9 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Builder
-@RequiredArgsConstructor
 public class UserEntity implements UserDetails {
     @Id
+    @GeneratedValue
     private Long id;
     private String login;
     private String password;
@@ -27,6 +22,23 @@ public class UserEntity implements UserDetails {
     private ERole role;
     @OneToOne(mappedBy = "userAccount")
     private OwnerEntity owner;
+
+    private UserEntity(Long id, String login, String password, String firstname, String lastname, ERole role, OwnerEntity owner) {
+        this.id = id;
+        this.login = login;
+        this.password = password;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.role = role;
+        this.owner = owner;
+    }
+
+    public UserEntity() {
+    }
+
+    public static UserEntityBuilder builder() {
+        return new UserEntityBuilder();
+    }
 
     public Long getId() {
         return this.id;
@@ -112,5 +124,61 @@ public class UserEntity implements UserDetails {
 
     public void setOwner(OwnerEntity owner) {
         this.owner = owner;
+    }
+
+    public static class UserEntityBuilder {
+        private Long id;
+        private String login;
+        private String password;
+        private String firstname;
+        private String lastname;
+        private ERole role;
+        private OwnerEntity owner;
+
+        UserEntityBuilder() {
+        }
+
+        public UserEntityBuilder id(Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public UserEntityBuilder login(String login) {
+            this.login = login;
+            return this;
+        }
+
+        public UserEntityBuilder password(String password) {
+            this.password = password;
+            return this;
+        }
+
+        public UserEntityBuilder firstname(String firstname) {
+            this.firstname = firstname;
+            return this;
+        }
+
+        public UserEntityBuilder lastname(String lastname) {
+            this.lastname = lastname;
+            return this;
+        }
+
+        public UserEntityBuilder role(ERole role) {
+            this.role = role;
+            return this;
+        }
+
+        public UserEntityBuilder owner(OwnerEntity owner) {
+            this.owner = owner;
+            return this;
+        }
+
+        public UserEntity build() {
+            return new UserEntity(id, login, password, firstname, lastname, role, owner);
+        }
+
+        public String toString() {
+            return "UserEntity.UserEntityBuilder(id=" + this.id + ", login=" + this.login + ", password=" + this.password + ", firstname=" + this.firstname + ", lastname=" + this.lastname + ", role=" + this.role + ", owner=" + this.owner + ")";
+        }
     }
 }

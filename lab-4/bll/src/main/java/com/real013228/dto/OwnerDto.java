@@ -6,4 +6,4 @@ import jakarta.validation.constraints.Size;
 
 import java.util.List;
 
-public record OwnerDto(@NotNull String name, @Past @Size(min = 10, max = 10) String birthDate, List<Long> cats){}
+public record OwnerDto(@NotNull String name, @Past @Size(min = 10, max = 10) String birthDate, List<Long> cats, Long userAccountId){}
