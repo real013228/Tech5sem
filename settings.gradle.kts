@@ -14,3 +14,10 @@ include("lab-3:bll")
 findProject(":lab-3:bll")?.name = "bll"
 include("lab-3:dal")
 findProject(":lab-3:dal")?.name = "dal"
+include("lab-4")
+include("lab-4:dal")
+findProject(":lab-4:dal")?.name = "dal"
+include("lab-4:bll")
+findProject(":lab-4:bll")?.name = "bll"
+include("lab-4:pl")
+findProject(":lab-4:pl")?.name = "pl"
