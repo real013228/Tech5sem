@@ -3,9 +3,11 @@ package com.real013228.service;
 import com.real013228.Mapper;
 import com.real013228.dto.OwnerDto;
 import com.real013228.entity.OwnerEntity;
+import com.real013228.event.CatOwnedEvent;
 import com.real013228.model.CatModel;
 import com.real013228.model.OwnerModel;
 import com.real013228.repository.OwnerRepository;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -16,10 +18,12 @@ import java.util.List;
 public class OwnerServiceImpl implements OwnerService {
     private final OwnerRepository ownerRepository;
     private final WebClient webClient;
+    private final KafkaTemplate<String, CatOwnedEvent> kafkaTemplate;
 
-    public OwnerServiceImpl(OwnerRepository ownerRepository, WebClient webClient) {
+    public OwnerServiceImpl(OwnerRepository ownerRepository, WebClient webClient, KafkaTemplate kafkaTemplate) {
         this.ownerRepository = ownerRepository;
         this.webClient = webClient;
+        this.kafkaTemplate = kafkaTemplate;
     }
 
     @Override
@@ -47,6 +51,7 @@ public class OwnerServiceImpl implements OwnerService {
         if (res != null && ownerEntity != null) {
             ownerEntity.getCats().add(Mapper.asCatEntity(res, cat, owner));
             ownerRepository.save(ownerEntity);
+            kafkaTemplate.send("notificationTopic", new CatOwnedEvent(owner, cat));
         }
         // call cat-persistence service to know is there a cat
     }

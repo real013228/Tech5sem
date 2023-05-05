@@ -28,3 +28,5 @@ include("lab-5:cat-persistence")
 findProject(":lab-5:cat-persistence")?.name = "cat-persistence"
 include("lab-5:owner-persistence")
 findProject(":lab-5:owner-persistence")?.name = "owner-persistence"
+include("lab-5:notification-service")
+findProject(":lab-5:notification-service")?.name = "notification-service"
