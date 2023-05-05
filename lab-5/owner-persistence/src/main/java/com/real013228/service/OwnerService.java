@@ -9,4 +9,6 @@ public interface OwnerService {
     List<OwnerDto> findAllOwners();
     void saveOwner(OwnerModel owner);
     void ownCat(Long owner, Long cat);
+
+    void deleteOwner(Long id);
 }

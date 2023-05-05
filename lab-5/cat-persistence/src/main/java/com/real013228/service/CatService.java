@@ -11,4 +11,6 @@ public interface CatService {
     void deleteCat(Long id);
 
     CatDto findCatById(Long id);
+
+    void makeFriends(Long firstCat, Long secondCat);
 }

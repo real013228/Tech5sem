@@ -23,7 +23,7 @@ public class CatController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createCat(@RequestBody CatModel cat) {
+    public void createCat(@RequestBody @Valid CatModel cat) {
         catService.saveCat(cat);
     }
     @GetMapping("/get/all")
@@ -39,5 +39,14 @@ public class CatController {
     public CatModel findCatById(Long id) {
         CatDto catDto = catService.findCatById(id);
         return Mapper.asCatModel(catDto);
+    }
+
+    @PutMapping("/make/friends")
+    public void makeFriends(@RequestBody @Valid MakeFriendsDto cats) {
+        catService.makeFriends(cats.firstCat(),cats. secondCat());
+    }
+    @DeleteMapping("/{id}")
+    public void deleteCat(@PathVariable("id") @Min(1) Long id) {
+        catService.deleteCat(id);
     }
 }

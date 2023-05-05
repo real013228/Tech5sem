@@ -56,6 +56,11 @@ public class OwnerServiceImpl implements OwnerService {
         // call cat-persistence service to know is there a cat
     }
 
+    @Override
+    public void deleteOwner(Long id) {
+        ownerRepository.deleteById(id);
+    }
+
     private OwnerEntity asOwnerEntity(OwnerModel ownerModel) {
         return OwnerEntity.builder()
                 .birthDate(ownerModel.birthDate())

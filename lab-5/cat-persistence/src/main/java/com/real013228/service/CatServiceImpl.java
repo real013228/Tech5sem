@@ -42,4 +42,21 @@ public class CatServiceImpl implements CatService {
     public CatDto findCatById(Long id) {
         return Mapper.asCatDto(catRepository.findById(id).orElse(null));
     }
+
+    @Override
+    public void makeFriends(Long firstCatId, Long secondCatId) {
+        var firstCat = catRepository.findById(firstCatId).orElse(null);
+        var secondCat = catRepository.findById(secondCatId).orElse(null);
+        var firstCatFriends = firstCat.getFriends();
+        firstCatFriends.add(secondCat);
+
+        var secondCatFriends = secondCat.getFriends();
+        secondCatFriends.add(firstCat);
+
+        firstCat.setFriends(firstCatFriends);
+        secondCat.setFriends(secondCatFriends);
+        catRepository.save(firstCat);
+        catRepository.save(secondCat);
+    }
+
 }
