@@ -21,3 +21,12 @@ include("lab-4:bll")
 findProject(":lab-4:bll")?.name = "bll"
 include("lab-4:pl")
 findProject(":lab-4:pl")?.name = "pl"
+include("lab-5")
+include("lab-5:api-service")
+findProject(":lab-5:api-service")?.name = "api-service"
+include("lab-5:cat-persistence")
+findProject(":lab-5:cat-persistence")?.name = "cat-persistence"
+include("lab-5:owner-persistence")
+findProject(":lab-5:owner-persistence")?.name = "owner-persistence"
+include("lab-5:notification-service")
+findProject(":lab-5:notification-service")?.name = "notification-service"

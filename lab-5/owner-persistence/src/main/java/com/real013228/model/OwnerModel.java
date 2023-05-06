@@ -1,0 +1,9 @@
+package com.real013228.model;
+
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Size;
+
+import java.util.List;
+
+public record OwnerModel(@NotNull String name, @Past @Size(min = 10, max = 10) String birthDate, List<Long> cats, Long userAccountId){}
